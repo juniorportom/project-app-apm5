@@ -63,8 +63,7 @@ export class RegisterUser {
 
       ]
     });
-    prompt.present();        
-
+    prompt.present(); 
     }
 
 

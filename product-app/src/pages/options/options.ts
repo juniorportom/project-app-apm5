@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {RegisterUser} from '../register-user/register-user';
+import {Login} from '../login/login';
 
 /*
   Generated class for the Options page.
@@ -23,6 +24,11 @@ export class OptionsPage {
   goToRegister()
   {
   	this.navCtrl.push(RegisterUser);
+  }
+
+  goToLogin()
+  {
+    this.navCtrl.push(Login);
   }
 
 

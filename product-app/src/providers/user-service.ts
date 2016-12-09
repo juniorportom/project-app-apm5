@@ -36,6 +36,15 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    singUpUser(email:string, password:string): Observable<User> {
+        const url = this.usersURI + 'sign-in';
+        return this.http
+        .post(url, JSON.stringify({email:email,
+            password:password}), {headers: this.headers})
+            .map(res => <User>res.json())
+            .catch(this.handleError);
+    }
+
     update(user: User): Observable<User> {
         const url = this.usersURI + 'update/' + user.email;
         return this.http
@@ -59,6 +68,14 @@ export class UserService {
     delete (user: User): Observable<any>{
         const url = this.usersURI + 'delete/' + user.email;
         return this.http.delete(url)
+            .catch(this.handleError);
+    }
+
+    forgotPassword(password: string, email: string): Observable<User>{
+        const url = this.usersURI + 'forgot-password/' + email;
+        return this.http
+            .post(url, JSON.stringify({password:password}), {headers: this.headers})
+            .map(res => <User>res.json())
             .catch(this.handleError);
     }
 
