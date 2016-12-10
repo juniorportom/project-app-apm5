@@ -46,4 +46,12 @@ export class CustomValidators {
       }
   }
 
+  public static quantityValidator(control: AbstractControl) {
+      if (control.value.match(/^(?=[0-9]+)$/)) {
+        return null;
+      } else {
+        return {'invalidPrice': true };
+      }
+  }
+
 }  
