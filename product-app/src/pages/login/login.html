@@ -14,13 +14,21 @@
 
 
 <ion-content padding>
-
-	<ion-label fixed>Email:</ion-label>
-    <ion-input type="text" placeholder="Email" #userEmail></ion-input>
-    <ion-label fixed>Password:</ion-label>
-    <ion-input type="Password" placeholder="Password" #userPassword></ion-input>
-  <button ion-button color="secondary" (click)="loginUser(userEmail.value, userPassword.value);  userEmail.value=''; userPassword.value = ''">Ingresar</button>
-  <br>
-   <button ion-button color="danger" clear  (click)="goToForgotPassword(userEmail.value)" >Olvido su contraseña?</button>
-
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()" novalidate>
+  <div *ngIf="user">
+      <hr />
+      <ion-list>
+          <ion-item>
+          <ion-label stacked>Email:</ion-label>
+          <ion-input formControlName="Email" type="text"  placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Password:</ion-label>
+          <ion-input formControlName="Password" type="password"  placeholder="Password"></ion-input>
+        </ion-item>
+        </ion-list>
+      <button ion-button block type="submit" [disabled]="!loginForm.valid">Ingresar</button>      
+  </div>  
+  </form>
+  <button ion-button color="danger" clear  (click)="goToForgotPassword()" >Olvido su contraseña?</button>
 </ion-content>

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import {ProductService} from "../../providers/product-service";
 import { Product } from '../../model/product';
 import {ProductDetail} from '../product-detail/product-detail';
 import {CreateProduct} from '../create-product/create-product';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the Home page.
@@ -21,7 +22,11 @@ export class Home {
 
     products: Product[];
 
-  constructor(public navCtrl: NavController, private productService: ProductService) {}
+  constructor(public navCtrl: NavController, private productService: ProductService, public storage: Storage, private viewCtrl: ViewController) {}
+
+  ionViewWillEnter() {
+        this.viewCtrl.showBackButton(false);
+    }
 
   ionViewDidLoad() {
     console.log('Hello HomePage Page');
@@ -46,6 +51,7 @@ export class Home {
 
     onSelect(product: Product){
         this.selected = product;
+        this.storage.set("id", product.id);
         this.navCtrl.push(ProductDetail, {id: this.selected.id});    
         
     }

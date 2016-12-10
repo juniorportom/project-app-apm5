@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import {UserService} from "../../providers/user-service";
 import { User } from '../../model/user';
@@ -20,7 +20,7 @@ export class ProfileDetail {
 	email: string;
 	user: User = new User();
 
-  constructor(public navCtrl: NavController, public storage: Storage, private userService: UserService, public alertCtrl: AlertController) {}
+  constructor(public navCtrl: NavController, public storage: Storage, private userService: UserService, public alertCtrl: AlertController, private viewCtrl: ViewController) {}
 
   ionViewDidLoad() {
     console.log('Hello ProfileDetailPage Page');
@@ -32,6 +32,10 @@ export class ProfileDetail {
   		}
     });
   }
+
+  ionViewWillEnter() {
+        this.viewCtrl.showBackButton(false);
+    }
 
   edit(){
   	this.navCtrl.push(EditProfile);

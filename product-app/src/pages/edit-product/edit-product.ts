@@ -3,6 +3,9 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import {ProductService} from "../../providers/product-service";
 import { Product } from '../../model/product';
 import {ProductDetail} from '../product-detail/product-detail';
+import {CustomValidators} from '../../validators/custom-validator';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Storage } from '@ionic/storage';
 
 
 /*
@@ -16,17 +19,51 @@ import {ProductDetail} from '../product-detail/product-detail';
   templateUrl: 'edit-product.html'
 })
 export class EditProduct {
-	product: Product;
+	product: Product = new Product();
+  productForm: FormGroup;
+  id: any;
 
-  constructor(public navCtrl: NavController, private productService: ProductService, private param: NavParams, public alertCtrl: AlertController) {}
+  constructor(public navCtrl: NavController, private productService: ProductService, private param: NavParams, public alertCtrl: AlertController, public formBuilder: FormBuilder, public storage: Storage) {
+    this.id = this.param.get('id');
+    this.productForm = this.createProductForm();
+  }
 
   ionViewDidLoad() {
     console.log('Hello EditProductPage Page');
-    let id = this.param.get('id');
-            this.productService.getProduct(id).subscribe(product=>this.product=product),
+   
+  }  
+  
+  ngOnInit()
+  {
+    this.storage.get("id").then(id => {
+      this.productService.getProduct(this.id).subscribe(product=>{this.product=product;
+      this.productForm = this.formBuilder.group({
+      name: [this.product.name, [Validators.required, Validators.minLength(4)]],
+      type: [this.product.type, [Validators.required, Validators.minLength(6)]],
+      price: [this.product.price, [Validators.required, Validators.minLength(5)]],
+      quantity: [this.product.quantity, [Validators.required, Validators.minLength(1)]],
+      latitude: [this.product.latitude, [Validators.required]],
+      longitude: [this.product.longitude, [Validators.required]]
+    });
+      }),
                 error => {
+
                 console.log(error);
-  		}
+      }
+    });
+
+  }
+
+
+   public createProductForm() {
+    return this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      type: ['', [Validators.required, Validators.minLength(6)]],
+      price: ['', [Validators.required, Validators.minLength(5)]],
+      quantity: ['', [Validators.required, Validators.minLength(1)]],
+      latitude: ['', [Validators.required]],
+      longitude: ['', [Validators.required]]
+    });
   }
 
   save(): void {
@@ -43,7 +80,12 @@ export class EditProduct {
         {
           text: 'Acceptar',
           handler: data => {
-
+            this.product.name = this.productForm.value.name;
+            this.product.type = this.productForm.value.type;
+            this.product.price = this.productForm.value.price;
+            this.product.quantity = this.productForm.value.quantity;
+            this.product.latitude = this.productForm.value.latitude;
+            this.product.longitude = this.productForm.value.longitude;
             this.productService.update(this.product)
             .subscribe(
                 response => {console.log(response);

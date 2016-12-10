@@ -30,7 +30,7 @@ export class CustomValidators {
 
 
   public static priceValidator(control: AbstractControl) {
-      if (control.value.match(/^(?=.*[0-9])[0-9$.]{6,20}$/)) {
+      if (control.value.match(/^(?=.*[0-9])[0-9$.]{5,}$/)) {
         return null;
       } else {
         return {'invalidPrice': true };
@@ -39,7 +39,7 @@ export class CustomValidators {
 
 
   public static positionValidator(control: AbstractControl) {
-      if (control.value.match(/^(?=.*[0-9])[0-9.]{6,20}$/)) {
+      if (control.value.match(/^(?=(\-){0,1}[0-9]{1,}(\.[0-9]{1,}))$/)) {
         return null;
       } else {
         return {'invalidPrice': true };
@@ -47,7 +47,7 @@ export class CustomValidators {
   }
 
   public static quantityValidator(control: AbstractControl) {
-      if (control.value.match(/^(?=[0-9]+)$/)) {
+      if (control.value.match(/^(?=.*[0-9])[0-9]{1,}$/)) {
         return null;
       } else {
         return {'invalidPrice': true };

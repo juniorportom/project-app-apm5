@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import {UserService} from "../../providers/user-service";
 import { User } from '../../model/user';
-import {Login} from '../login/login';
+import {OptionsPage} from '../options/options';
 import {CustomValidators} from '../../validators/custom-validator';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -57,7 +57,7 @@ export class ForgotPassword {
             this.userService.forgotPassword(this.user.password, this.user.email).subscribe(user=>{
             	this.user=user;
             	console.log(user);
-            	this.navCtrl.push(Login);
+            	this.navCtrl.push(OptionsPage);
 
             }),
                 error => {

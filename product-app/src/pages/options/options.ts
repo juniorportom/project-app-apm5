@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import {RegisterUser} from '../register-user/register-user';
 import {Login} from '../login/login';
 
@@ -15,7 +15,7 @@ import {Login} from '../login/login';
 })
 export class OptionsPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, private viewCtrl: ViewController) {}
 
   ionViewDidLoad() {
     console.log('Hello OptionsPage Page');
@@ -30,6 +30,10 @@ export class OptionsPage {
   {
     this.navCtrl.push(Login);
   }
+
+  ionViewWillEnter() {
+        this.viewCtrl.showBackButton(false);
+    }
 
 
 

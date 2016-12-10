@@ -5,7 +5,8 @@ import { User } from '../../model/user';
 import {ForgotPassword} from '../forgot-password/forgot-password';
 import {Home} from '../home/home';
 import { Storage } from '@ionic/storage';
-
+import {CustomValidators} from '../../validators/custom-validator';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 /*
   Generated class for the Login page.
@@ -19,22 +20,35 @@ import { Storage } from '@ionic/storage';
 })
 export class Login {
 
-  user:User = new User();
+  user:User;// = new User();
+  loginForm: FormGroup;
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private userService: UserService, public storage: Storage, public formBuilder: FormBuilder) 
+  {this.user = new User();
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private userService: UserService, public storage: Storage) {}
-
+    this.loginForm = this.createLoginForm();} 
+  
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
   }
 
-   goToForgotPassword(email:string)
-  {
-  	this.navCtrl.push(ForgotPassword, {email: email});
+   public createLoginForm() {
+    return this.formBuilder.group({
+      Email: ['', [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]],
+      Password: ['', [Validators.required, Validators.minLength(6), CustomValidators.passwordValidator]]
+    });
   }
 
-  loginUser(email:string, password:string)
+   goToForgotPassword()
   {
-      this.userService.singUpUser(email, password).subscribe(user=>{
+    this.navCtrl.push(ForgotPassword, {email: this.loginForm.value.Email});
+  }
+
+  loginUser()
+  {
+    this.user.email = this.loginForm.value.Email;
+            this.user.password = this.loginForm.value.Password;
+
+      this.userService.singUpUser(this.user.email, this.user.password).subscribe(user=>{
         console.log("cookie: " + user.cookie);
         console.log("usuario: " + user.error);
 
@@ -58,4 +72,4 @@ export class Login {
       }
   }
 
-}
+} 

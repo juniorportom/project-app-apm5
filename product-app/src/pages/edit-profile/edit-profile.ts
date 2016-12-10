@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import {UserService} from "../../providers/user-service";
 import { User } from '../../model/user';
@@ -23,10 +23,14 @@ export class EditProfile {
 	user: User = new User();
   userForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public storage: Storage, private userService: UserService, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public storage: Storage, private userService: UserService, public alertCtrl: AlertController, public formBuilder: FormBuilder, private viewCtrl: ViewController) {
     //this.ionViewDidLoad();
     this.userForm = this.createUserForm();
   }
+
+  ionViewWillEnter() {
+        this.viewCtrl.showBackButton(false);
+    }
 
   ionViewDidLoad() {
     console.log('Hello EditProfilePage Page');
@@ -42,8 +46,7 @@ export class EditProfile {
       FirstName: [this.user.firstname, [Validators.required, Validators.minLength(3)]],
       LastName: [this.user.lastname, [Validators.required, Validators.minLength(3)]],
       Phone: [this.user.phone, [Validators.required, Validators.minLength(10),Validators.maxLength(10), CustomValidators.phoneValidator]],
-      Email: [this.user.email, [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]],
-      Password: [this.user.password, [Validators.required, Validators.minLength(6), CustomValidators.passwordValidator]]
+      Email: [this.user.email, [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]]
     });
       }),
                 error => {
@@ -60,8 +63,7 @@ export class EditProfile {
       FirstName: ['', [Validators.required, Validators.minLength(3)]],
       LastName: ['', [Validators.required, Validators.minLength(3)]],
       Phone: ['', [Validators.required, Validators.minLength(10),Validators.maxLength(10), CustomValidators.phoneValidator]],
-      Email: ['', [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]],
-      Password: ['', [Validators.required, Validators.minLength(6), CustomValidators.passwordValidator]]
+      Email: ['', [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]]
     });
   }
 
