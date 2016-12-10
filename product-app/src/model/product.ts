@@ -1,4 +1,5 @@
 export class Product {
+	_id: number;
     id: number;
     name: string;
     type: string;
@@ -7,4 +8,5 @@ export class Product {
     latitude: number;   
     longitude: number;
     sync:boolean;
+    error:number;
 }
