@@ -14,31 +14,33 @@
 
 
 <ion-content padding>
+  <form [formGroup]="userForm" (ngSubmit)="add()" novalidate>
 	<div *ngIf="user">
     	<hr />
       <ion-list>
         <ion-item>
           <ion-label stacked>FirstName:</ion-label>
-          <ion-input type="text" [(ngModel)]="user.firstname" placeholder="Firstname"></ion-input>
+          <ion-input formControlName="FirstName" type="text" placeholder="FirstName"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>LastName:</ion-label>
-          <ion-input type="text" [(ngModel)]="user.lastname" placeholder="LastName"></ion-input>
+          <ion-input formControlName="LastName" type="text"  placeholder="LastName"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Email:</ion-label>
-          <ion-input type="text" [(ngModel)]="user.email" placeholder="Email"></ion-input>
+          <ion-input formControlName="Email" type="text"  placeholder="Email"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Password:</ion-label>
-          <ion-input type="password" [(ngModel)]="user.password" placeholder="Password"></ion-input>
+          <ion-input formControlName="Password" type="password"  placeholder="Password"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Phone:</ion-label>
-          <ion-input type="text" [(ngModel)]="user.phone" placeholder="Phone"></ion-input>
+          <ion-input formControlName="Phone" type="text"  placeholder="Phone"></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button color="secondary" (click)="add()">Registrarme</button>
+      <button ion-button block type="submit" [disabled]="!userForm.valid">Registrarme</button>
+      <!--button ion-button color="secondary" (click)="add()">Registrarme</button-->
 	</div>
-
+  </form>
 </ion-content>

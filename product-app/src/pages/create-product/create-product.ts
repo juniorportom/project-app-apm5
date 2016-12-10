@@ -4,6 +4,8 @@ import {ProductService} from "../../providers/product-service";
 import { Product } from '../../model/product';
 import {Home} from '../home/home';
 import {Geolocation} from 'ionic-native';
+import {CustomValidators} from '../../validators/custom-validator';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 /*
   Generated class for the CreateProduct page.

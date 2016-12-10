@@ -5,6 +5,7 @@
  	firstname: string;
  	lastname: string;
  	phone: number; 	
+ 	error: number;
  	url: string;
  	cookie: string;
  	sync:boolean;

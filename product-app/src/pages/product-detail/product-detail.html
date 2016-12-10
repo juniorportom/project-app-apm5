@@ -15,7 +15,12 @@
 </ion-header>
 <ion-content padding>
 	<div *ngIf="product">
+    <ion-card>
+      <ion-card-header>
+        Detalle Producto
+      </ion-card-header>
     	<hr />
+      <ion-card-content>
       <ion-list>
         <ion-item>
           <ion-label stacked>Name:</ion-label>
@@ -42,7 +47,9 @@
           <ion-input type="text" [(ngModel)]="product.longitude" placeholder="longitude" disabled="true"></ion-input>
         </ion-item>
       </ion-list>
+      </ion-card-content>
       <button ion-button color="secondary" (click)="edit()">Editar</button>
       <button ion-button color="danger" (click)="delete()">Eliminar</button>
+    </ion-card>
 	</div>
 </ion-content>
