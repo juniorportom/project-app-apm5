@@ -29,12 +29,12 @@
     "typescript": "2.0.6"
   },
   "cordovaPlugins": [
-    "cordova-plugin-whitelist",
-    "cordova-plugin-console",
     "cordova-plugin-statusbar",
-    "cordova-plugin-device",
+    "ionic-plugin-keyboard",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
+    "cordova-plugin-console",
+    "cordova-plugin-device",
+    "cordova-plugin-whitelist"
   ],
   "cordovaPlatforms": [],
   "description": "product-app: An Ionic project"
