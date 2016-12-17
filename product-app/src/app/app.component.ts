@@ -36,6 +36,16 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+       var notificationOpenedCallback = function(jsonData) {
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  };
+
+  window["plugins"].OneSignal
+    .startInit("b30f7730-7cd3-4eaf-8980-abf168378655", "974627863621")
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit();
+  
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
