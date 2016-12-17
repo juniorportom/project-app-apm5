@@ -27,7 +27,7 @@ export class ProductServiceDb {
         '_id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
         'id INTEGER , ' +
         'name TEXT, ' +
-        'type TEXT, ' + m 
+        'type TEXT, ' + 
         'quantity INTEGER, ' +
         'price INTEGER, ' +
         'latitude INTEGER, ' +
@@ -78,28 +78,7 @@ export class ProductServiceDb {
     	})
   }
 
-  create1(user: User){
-    let query = 'INSERT INTO user(name, phone, email) VALUES(?,?,?)';
-    return this.db.executeSql(query, [user.firstname, user.phone, user.email]);
-  }
-
-  update1(user: User){
-    let query = 'UPDATE user SET name=?,' +
-    'phone=?,' +
-    'email=?' +
-    'WHERE id=?';
-    return this.db.executeSql(query, [user.firstname, user.phone, user.email ,user.id]);
-  }
-
-  delete(user: User){
-    let query = 'DELETE FROM user where id = ?;';
-    return this.db.executeSql(query, [user.id]);
-  }
-
-
-
-
-
+  
 
 
 }
